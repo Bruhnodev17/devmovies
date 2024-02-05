@@ -25,14 +25,33 @@ export const Menu = styled.ul `
     font-weight: 600;
     font-size: 22px;
 
+`
+
+export const Li = styled.li `
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 28px;
+    position: relative;
+
     a{
         color: #FFF;
     }
 
-`
+    &::after{
+        content: "";
+        height: 3px;
+        width: ${(props => props.isActive ? "100%" : 0)};
+        background-color: #189b20;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: width 0.5s ease-in-out;
+    }
 
-export const Li = styled.li `
-
+    &:hover::after{
+        width: 100%;
+    }
 
 `
 
