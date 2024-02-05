@@ -12,6 +12,11 @@ function Home() {
 
     const [topSeries, setTopSeries] = useState()
 
+    const [popularSeries, setPopularSeries] = useState()
+
+    const [topPeople, setTopPeople] = useState()
+    
+
 
     useEffect(() => {
 
@@ -34,9 +39,25 @@ function Home() {
             setTopSeries(results)
             console.log(results)
         }
+
+        async function getPopularSeries() {
+
+            const { data: {results} } = await api.get("/tv/popular")
+            setPopularSeries(results)
+            console.log(results)
+        }
+
+        async function getTopPeople() {
+
+            const { data: {results} } = await api.get("/person/popular")
+            setTopPeople(results)
+            console.log(results)
+        }
         getMovies()
         getTopMovies()
         getTopSeries()
+        getPopularSeries()
+        getTopPeople()
     }, [])
  
 
@@ -62,7 +83,9 @@ function Home() {
                 </Background>
             )}
             {topMovies && <Slider info={topMovies} title={"Top Filmes"} />}
-            {topSeries && <Slider info={topSeries} title={"Top Series"} />}
+            {topSeries && <Slider info={topSeries} title={"Top Séries"} />}
+            {popularSeries && <Slider info={popularSeries} title={"Séries Populares"} />}
+            {topPeople && <Slider info={topPeople} title={"Top Artistas"} />}
         </>
     )
 }
