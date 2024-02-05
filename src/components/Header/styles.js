@@ -8,6 +8,10 @@ export const Container = styled.div `
     padding: 10px 50px;
     justify-content: space-between;
     align-items: center;
+    background: ${(props) => props.changeBackground ? "#000" : "transparent"};
+    min-height: 100px;
+
+    transition: background-color 0.6s ease-in-out;
 
     img{
         width: 25%;
