@@ -4,6 +4,7 @@ import api from "../../services/api"
 import { Background, Info, Poster, Container, ContainerButtons } from "./styles"
 import { getImages } from "../../utils/getImages"
 import { useState, useEffect } from "react"
+import Modal from "../../components/Modal"
 
 function Home() {
     const [movie, setMovie] = useState()
@@ -66,6 +67,7 @@ function Home() {
         <>
             {movie && (
                 <Background img={getImages(movie.backdrop_path)}>
+                    <Modal movieId={movie.id}/>
 
                     <Container>
                         <Info>
