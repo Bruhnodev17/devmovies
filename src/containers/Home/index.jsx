@@ -19,18 +19,27 @@ function Home() {
     const [topPeople, setTopPeople] = useState()
 
     const [showModal, setShowModal] = useState(false)
-    
+
     const navigate = useNavigate()
 
     useEffect(() => {
 
         async function getAllData() {
-
-            setMovie(await getMovies())
-            setTopMovies(await getTopMovies())
-            setTopSeries(await getTopSeries())
-            setPopularSeries(await getPopularSeries())
-            setTopPeople(await getTopPeople())
+            Promise.all([
+                getMovies(),
+                getTopMovies(),
+                getTopSeries(),
+                getPopularSeries(),
+                getTopPeople()
+            ])
+            .then(([movie, topMovies, topSeries, popularSeries, topPeople]) => {
+                setMovie(movie)
+                setTopMovies(topMovies)
+                setTopSeries(topSeries)
+                setPopularSeries(popularSeries)
+                setTopPeople(topPeople)
+            })
+                .catch((error) => console.log(error))
         }
         getAllData()
     }, [])
@@ -41,8 +50,8 @@ function Home() {
         <>
             {movie && (
                 <Background img={getImages(movie.backdrop_path)}>
-                    {showModal && 
-                    <Modal movieId={movie.id} setShowModal={setShowModal}/>}
+                    {showModal &&
+                        <Modal movieId={movie.id} setShowModal={setShowModal} />}
 
                     <Container>
                         <Info>
