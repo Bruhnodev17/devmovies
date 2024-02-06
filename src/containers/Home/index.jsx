@@ -16,41 +16,42 @@ function Home() {
     const [popularSeries, setPopularSeries] = useState()
 
     const [topPeople, setTopPeople] = useState()
-    
+
+    const [showModal, setShowModal] = useState(false)
 
 
     useEffect(() => {
 
         async function getMovies() {
 
-            const { data: {results} } = await api.get("/movie/popular")
+            const { data: { results } } = await api.get("/movie/popular")
             setMovie(results[3])
         }
 
         async function getTopMovies() {
 
-            const { data: {results} } = await api.get("/movie/top_rated")
+            const { data: { results } } = await api.get("/movie/top_rated")
             setTopMovies(results)
             console.log(results)
         }
 
         async function getTopSeries() {
 
-            const { data: {results} } = await api.get("/tv/top_rated")
+            const { data: { results } } = await api.get("/tv/top_rated")
             setTopSeries(results)
             console.log(results)
         }
 
         async function getPopularSeries() {
 
-            const { data: {results} } = await api.get("/tv/popular")
+            const { data: { results } } = await api.get("/tv/popular")
             setPopularSeries(results)
             console.log(results)
         }
 
         async function getTopPeople() {
 
-            const { data: {results} } = await api.get("/person/popular")
+            const { data: { results } } = await api.get("/person/popular")
             setTopPeople(results)
             console.log(results)
         }
@@ -60,14 +61,15 @@ function Home() {
         getPopularSeries()
         getTopPeople()
     }, [])
- 
+
 
 
     return (
         <>
             {movie && (
                 <Background img={getImages(movie.backdrop_path)}>
-                    <Modal movieId={movie.id}/>
+                    {showModal && 
+                    <Modal movieId={movie.id} setShowModal={setShowModal}/>}
 
                     <Container>
                         <Info>
@@ -75,7 +77,7 @@ function Home() {
                             <p>{movie.overview}</p>
                             <ContainerButtons>
                                 <Button red={true}>Assista agora</Button>
-                                <Button red={false}>Assista ao trailer</Button>
+                                <Button red={false} onClick={() => setShowModal(true)}>Assista ao trailer</Button>
                             </ContainerButtons>
                         </Info>
                         <Poster>
