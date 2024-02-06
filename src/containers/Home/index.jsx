@@ -5,6 +5,7 @@ import { Background, Info, Poster, Container, ContainerButtons } from "./styles"
 import { getImages } from "../../utils/getImages"
 import { useState, useEffect } from "react"
 import Modal from "../../components/Modal"
+import { useNavigate } from "react-router-dom"
 
 function Home() {
     const [movie, setMovie] = useState()
@@ -18,7 +19,8 @@ function Home() {
     const [topPeople, setTopPeople] = useState()
 
     const [showModal, setShowModal] = useState(false)
-
+    
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -76,7 +78,7 @@ function Home() {
                             <h1>{movie.title}</h1>
                             <p>{movie.overview}</p>
                             <ContainerButtons>
-                                <Button red={true}>Assista agora</Button>
+                                <Button red={true} onClick={() => navigate(`/detalhe/${movie.id}`)}>Assista agora</Button>
                                 <Button red={false} onClick={() => setShowModal(true)}>Assista ao trailer</Button>
                             </ContainerButtons>
                         </Info>
