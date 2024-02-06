@@ -1,11 +1,11 @@
 import Button from "../../components/Button"
 import Slider from "../../components/Slider"
-import api from "../../services/api"
 import { Background, Info, Poster, Container, ContainerButtons } from "./styles"
 import { getImages } from "../../utils/getImages"
 import { useState, useEffect } from "react"
 import Modal from "../../components/Modal"
 import { useNavigate } from "react-router-dom"
+import { getMovies, getPopularSeries, getTopMovies, getTopPeople, getTopSeries } from "../../services/getData"
 
 function Home() {
     const [movie, setMovie] = useState()
@@ -24,44 +24,15 @@ function Home() {
 
     useEffect(() => {
 
-        async function getMovies() {
+        async function getAllData() {
 
-            const { data: { results } } = await api.get("/movie/popular")
-            setMovie(results[3])
+            setMovie(await getMovies())
+            setTopMovies(await getTopMovies())
+            setTopSeries(await getTopSeries())
+            setPopularSeries(await getPopularSeries())
+            setTopPeople(await getTopPeople())
         }
-
-        async function getTopMovies() {
-
-            const { data: { results } } = await api.get("/movie/top_rated")
-            setTopMovies(results)
-            console.log(results)
-        }
-
-        async function getTopSeries() {
-
-            const { data: { results } } = await api.get("/tv/top_rated")
-            setTopSeries(results)
-            console.log(results)
-        }
-
-        async function getPopularSeries() {
-
-            const { data: { results } } = await api.get("/tv/popular")
-            setPopularSeries(results)
-            console.log(results)
-        }
-
-        async function getTopPeople() {
-
-            const { data: { results } } = await api.get("/person/popular")
-            setTopPeople(results)
-            console.log(results)
-        }
-        getMovies()
-        getTopMovies()
-        getTopSeries()
-        getPopularSeries()
-        getTopPeople()
+        getAllData()
     }, [])
 
 
