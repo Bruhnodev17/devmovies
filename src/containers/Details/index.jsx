@@ -1,20 +1,19 @@
 import { useParams } from "react-router-dom"
 import { getMovieById, getMovieCredits, getMovieSimilar, getMovieVideos } from "../../services/getData"
-import { Container } from "./styles"
 import { useEffect, useState } from "react"
+import { Container, Background, Cover } from "./styles"
+import { getImages } from '../../utils/getImages'
 
-// eslint-disable-next-line react/prop-types
 function Details() {
-    console.log(useParams())
+
+    const { id } = useParams()
+
+    const [movie, setMovie] = useState()
+    const [movieVideos, setMovieVideos] = useState()
+    const [movieCredits, setMovieCredits] = useState()
+    const [movieSimilar, setMovieSimilar] = useState()
 
     useEffect(() => {
-
-        const { id } = useParams()
-
-        const [movie, setMovie] = useState()
-        const [movieVideos, setMovieVideos] = useState()
-        const [movieCredits, setMovieCredits] = useState()
-        const [movieSimilar, setMovieSimilar] = useState()
 
         async function getAllData() {
             Promise.all([
@@ -24,7 +23,7 @@ function Details() {
                 getMovieSimilar(id),
             ])
                 .then(([movie, videos, credits, similar]) => {
-                    console.log({ movie, videos, credits, similar})
+                    console.log(movie, videos, credits, similar)
                     setMovie(movie)
                     setMovieVideos(videos)
                     setMovieCredits(credits)
@@ -36,9 +35,19 @@ function Details() {
     }, [])
 
     return (
-        <Container>
-            <div>Detalhes</div>
-        </Container>
+        <>
+            {movie && (
+                <>
+                    <Background image={getImages(movie.backdrop_path)} />
+                    <Container>
+                        <Cover>
+                            <img src={getImages(movie.poster_path)} />
+                        </Cover>
+                        <div>Detalhes</div>
+                    </Container>
+                </>
+            )}
+        </>
     )
 }
 
