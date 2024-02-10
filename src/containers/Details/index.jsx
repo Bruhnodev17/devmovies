@@ -26,7 +26,6 @@ function Details() {
                 getMovieSimilar(id),
             ])
                 .then(([movie, videos, credits, similar]) => {
-                    console.log(movie, videos, credits, similar)
                     setMovie(movie)
                     setMovieVideos(videos)
                     setMovieCredits(credits)
