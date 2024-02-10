@@ -4,7 +4,6 @@ import Card from "../Card"
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
 function Slider({ info, title }) {
-    console.log(info, title)
     return (
         <>
             <Container>
