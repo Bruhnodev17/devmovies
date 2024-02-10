@@ -1,6 +1,6 @@
-import styled, {keyframes} from "styled-components"
+import styled, { keyframes } from "styled-components"
 
-const scale = keyframes `
+const scale = keyframes`
 
     from {
         transform: scale(0)
@@ -64,6 +64,32 @@ export const Cover = styled.div`
     }
 
 `
+
+export const Info = styled.div`
+
+    padding: 20px;
+    width: 50%;
+    z-index: 99;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    h2{
+        font-size: 50px;
+        font-weight: 700;
+        color: #FFF;
+    }
+
+    p{
+        font-weight: 700;
+        color: #FFF;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    
+`
+
+
 
 
 

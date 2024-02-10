@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom"
 import { getMovieById, getMovieCredits, getMovieSimilar, getMovieVideos } from "../../services/getData"
 import { useEffect, useState } from "react"
-import { Container, Background, Cover } from "./styles"
+import { Container, Background, Cover, Info } from "./styles"
 import { getImages } from '../../utils/getImages'
+import SpanGenres from "../../components/SpanGenres"
+import Credits from "../../components/Credits"
 
 function Details() {
 
@@ -43,7 +45,14 @@ function Details() {
                         <Cover>
                             <img src={getImages(movie.poster_path)} />
                         </Cover>
-                        <div>Detalhes</div>
+                        <Info>
+                            <h2>{movie.title}</h2>
+                            <SpanGenres genres={movie.genres} />
+                            <p>{movie.overview}</p>
+                            <div>
+                                <Credits credits={movieCredits}/>
+                            </div>
+                        </Info>
                     </Container>
                 </>
             )}
